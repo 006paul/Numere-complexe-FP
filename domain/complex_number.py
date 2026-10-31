@@ -1,3 +1,10 @@
+def list_history(numbers, history):
+    """
+    Functie care salveaza lista numbers dupa fiecare operatie
+    :param numbers: lista de numere complexe
+    :return:
+    """
+    history.append(numbers.copy())
 def complex_number(real, imag):
     """
     Functie care creeaza un numar complex

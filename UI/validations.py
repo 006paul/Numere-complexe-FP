@@ -28,7 +28,6 @@ def validate_insert_pos(pos_str, list_len):
     if pos < 0 or pos > list_len:
         raise ValueError(f"Pozitie invalida! Introduceti un numar intre 0 si {list_len}")
     return pos
-
 def validate_pos(pos_str, list_len):
     """
     Functie care valideaza pozitia introdusa pos
@@ -43,7 +42,6 @@ def validate_pos(pos_str, list_len):
     if pos < 0 or pos >= list_len:
         raise ValueError(f"Pozitie invalida! Introduceti un numar intre 0 si {list_len - 1}")
     return pos
-
 def validate_interval(interval_str, list_len):
     """
     Functie care valideaza un interval
@@ -64,6 +62,21 @@ def validate_interval(interval_str, list_len):
     if start > end:
         raise ValueError("Pozitia de inceput trebuie sa fie mai mica sau egala cu pozitia de sfarsit")
     return start, end
+def validate_modulus(mod_str):
+    """
+    Functie care valideaza un modulul citit de la utilizator
+    :param mod_str: modulul citit de la utilizator
+    :return: mod - int
+    """
+    try:
+        mod = float(mod_str)
+    except ValueError:
+        raise ValueError("Valoarea introdusa trebuie sa fie numar")
+
+    if mod < 0:
+        raise ValueError("Modulul trebuie sa fie un numar pozitiv")
+
+    return mod
 def validate_num_is_in_list(numbers, num):
     """
     Functie care verifica daca un numar este in lista
@@ -76,3 +89,13 @@ def validate_num_is_in_list(numbers, num):
         if is_equal(_num, num):
             return True
     return False
+def validate_undo(history):
+    """
+    Functie care valideaza daca se poate efectua undo
+    :param history: istoricul operatiilor efectuate asupra listei numbers
+    :return: True - daca se poate face undo
+             False - altfel
+    """
+    if not history:
+        return False
+    return True

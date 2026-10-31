@@ -7,12 +7,13 @@ def main():
     """
     test_all()
     numbers = []
+    history = []
     while True:
         ui_menu()
         command = ui_get_command()
         if command == "exit":
             exit()
-        ui_run_command(command, numbers)
+        ui_run_command(command, numbers, history)
 
 if __name__ == "__main__":
     main()

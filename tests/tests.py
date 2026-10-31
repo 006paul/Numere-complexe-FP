@@ -189,6 +189,54 @@ def test_descending_sort_by_imag():
     assert get_imag(sorted_test_list[1]) == 2.0
     assert get_imag(sorted_test_list[2]) == 2.0
     assert get_imag(sorted_test_list[3]) == 1.0
+def test_filter_by_modulus():
+    """
+    Functie care testeaza functia filter_by_modulus
+    :return:
+    """
+    test_list1 = [complex_number(3.0, 5.0),
+                 complex_number(4.0, 2.0),
+                 complex_number(6.0, 2.0),
+                 complex_number(10.0, 2.0),
+                 complex_number(6.0, 8.0)]
+    test_list2 = test_list1.copy()
+    test_list3 = test_list1.copy()
+    filter_by_modulus(test_list1, 10.0, "<")
+    filter_by_modulus(test_list2, 10.0, ">")
+    filter_by_modulus(test_list3, 10.0, "=")
+    assert len(test_list1) == 2
+    assert len(test_list2) == 4
+    assert len(test_list3) == 4
+def test_undo():
+    """
+    Functie care testeaza functia undo
+    :return: None
+    """
+    test_list = []
+    test_history = []
+    list_history(test_list, test_history)
+    add_number(test_list, complex_number(3.0, 5.0))
+    list_history(test_list, test_history)
+    add_number(test_list, complex_number(4.0, 2.0))
+    list_history(test_list, test_history)
+    add_number(test_list, complex_number(6.0, 2.0))
+    assert len(test_history) == 3
+    undo(test_history, test_list)
+    assert len(test_list) == 2
+def test_history():
+    """
+    Functie care testeaza functia history
+    :return: None
+    """
+    test_list = []
+    test_history = []
+    list_history(test_list, test_history)
+    add_number(test_list, complex_number(3.0, 5.0))
+    list_history(test_list, test_history)
+    add_number(test_list, complex_number(4.0, 2.0))
+    list_history(test_list, test_history)
+    add_number(test_list, complex_number(6.0, 2.0))
+    assert len(test_history) == 3
 def test_all():
     """
     Functie care apeleaza toate functiile de test
@@ -211,3 +259,6 @@ def test_all():
     test_multuply()
     test_interval_product()
     test_descending_sort_by_imag()
+    test_filter_by_modulus()
+    test_history()
+    test_undo()

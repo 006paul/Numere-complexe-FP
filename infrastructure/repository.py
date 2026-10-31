@@ -53,3 +53,39 @@ def multiply(num1, num2):
     product = {"real": product_real,
                "imag": product_imag}
     return product
+def filter_less_than(numbers, mod):
+    """
+    Functie care elimina din lista numbers numerele cu modul mai mic decat mod
+    :param numbers: lista de numere complexe
+    :param mod: modulul fata de care se face comparatia
+    :return: None
+    """
+    i = len(numbers) - 1
+    while i >= 0:
+        if modulus(numbers[i]) < mod:
+            numbers.pop(i)
+        i -= 1
+def filter_greater_than(numbers, mod):
+    """
+    Functie care elimina din lista numbers numerele cu modul mai mare decat mod
+    :param numbers: lista de numere complexe
+    :param mod: modulul fata de care se face comparatia
+    :return: None
+    """
+    i = len(numbers) - 1
+    while i >= 0:
+        if modulus(numbers[i]) > mod:
+            numbers.pop(i)
+        i -= 1
+def filter_equal_to(numbers, mod):
+    """
+    Functie care elimina din lista numbers numerele cu modul egal cu mod
+    :param numbers: lista de numere complexe
+    :param mod: modulul fata de care se face comparatia
+    :return: None
+    """
+    i = len(numbers) - 1
+    while i >= 0:
+        if modulus(numbers[i]) == mod:
+            numbers.pop(i)
+        i -= 1

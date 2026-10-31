@@ -44,8 +44,21 @@ def filter_real_prime(numbers):
                 numbers.pop(i)
         i -= 1
 def insert_at_pos(numbers, number, pos):
+    """
+    Functie care insereaza un numar complex num la pozitia pos
+    :param numbers: lista de numere complexe
+    :param number: numarul care se insereaza
+    :param pos: pozitia la care se insereaza
+    :return: None
+    """
     numbers.insert(pos, number)
 def delete_interval(numbers, interval):
+    """
+    Functie care elimina numerelor complexe din intervalul interval
+    :param numbers: lista de numere complexe
+    :param interval: intervalul din care se elimina numerele complexe
+    :return: None
+    """
     del_interval = interval[1] - interval[0] + 1
     while del_interval > 0:
         numbers.pop(interval[0])
@@ -109,3 +122,28 @@ def descending_sort_by_imag(numbers):
             if get_imag(sorted_list[i]) < get_imag(sorted_list[j]):
                 sorted_list[i], sorted_list[j] = sorted_list[j], sorted_list[i]
     return sorted_list
+def filter_by_modulus(numbers, mod, cmd):
+    """
+    Functie care filtreaza lista numbers in functie de modulul mod
+    :param numbers: lista de numere complexe
+    :param mod: modulul de comparatie
+    :param cmd: proprietatea de comparatie
+    :return: None
+    """
+    match cmd:
+        case "<":
+            filter_less_than(numbers, mod)
+        case ">":
+            filter_greater_than(numbers, mod)
+        case "=":
+            filter_equal_to(numbers, mod)
+def undo(history, numbers):
+    """
+    Functie care reface ultima operatie efectuata asupra listei
+    :param history: istoricul operatiilor facute asupra listei numbers
+    :param numbers: lista de numere complexe
+    :return: None
+    """
+    previous_state = history.pop()
+    numbers.clear()
+    numbers.extend(previous_state)

@@ -19,9 +19,10 @@ def ui_menu():
           "10: Cacluleaza produsul numerelor dintr-o subsecventa \n"
           "11: Afiseaza lista sortata in ordine descrescatoare dupa partea imaginara \n"
           "12: Filtrare parte reala prim - elimina din lista numerele care au partea reala prim \n"
+          "13: Elimina din lista numerele care au modulul <, >, = cu un numar dat \n"
+          "14: Undo - Reface ultima operatie \n"
           "exit: Opreste programul \n"
           "---------------------------------------------------------------------------------------")
-
 def ui_get_command():
     """
     Functie care citeste o comanda de la tastatura
@@ -29,8 +30,7 @@ def ui_get_command():
     """
     command = input().strip()
     return command
-
-def ui_show_command_prompt(command, numbers):
+def ui_show_command_prompt(command, numbers, history):
     """
     Functie care afiseaza un prompt pentru utilizator in functie de comanda selectata
     :param command: string, comanda citita de la tastatura
@@ -39,6 +39,7 @@ def ui_show_command_prompt(command, numbers):
     """
     if command == "1":
         num = ui_get_number("1")
+        list_history(numbers, history)
         add_number(numbers, num)
         ui_print_list(numbers)
     if command == "2":
@@ -46,22 +47,26 @@ def ui_show_command_prompt(command, numbers):
         if pos is not None:
             num = ui_get_number("1")
             if num is not None:
+                list_history(numbers, history)
                 insert_at_pos(numbers, num, pos)
                 ui_print_list(numbers)
     if command == "3":
         pos = ui_get_delete_pos(len(numbers))
         if pos is not None:
+            list_history(numbers, history)
             delete_number_by_pos(numbers, pos)
             ui_print_list(numbers)
     if command == "4":
         interval = ui_get_start_end(len(numbers))
         if interval is not None:
+            list_history(numbers, history)
             delete_interval(numbers, interval)
             ui_print_list(numbers)
     if command == "5":
         num_to_replace = ui_get_num_from_list(numbers)
         if num_to_replace is not None:
             num_replace = ui_get_number("5")
+            list_history(numbers, history)
             replace_number(numbers, num_to_replace, num_replace)
             ui_print_list(numbers)
     if command == "6":
@@ -84,9 +89,45 @@ def ui_show_command_prompt(command, numbers):
         descending_sorted_numbers = descending_sort_by_imag(numbers)
         ui_print_list(descending_sorted_numbers)
     if command == "12":
+        list_history(numbers, history)
         filter_real_prime(numbers)
         ui_print_list(numbers)
-
+    if command == "13":
+        cmd = ui_get_property()
+        if cmd is not None:
+            mod = ui_get_mod()
+            if mod is not None:
+                list_history(numbers, history)
+                filter_by_modulus(numbers, mod, cmd)
+                ui_print_list(numbers)
+    if command == "14":
+        if validate_undo(history):
+            undo(history, numbers)
+            ui_print_list(numbers)
+        else:
+            print("Nu se mai poate face undo")
+def ui_get_mod():
+    """
+    Functie care citeste de la utuilator un numar - modulul unui nr complex
+    :return: mod - string, modulul unui nr complex
+    """
+    while True:
+        try:
+            mod_str = input("Dati modulul: ").strip()
+            mod = validate_modulus(mod_str)
+            return mod
+        except ValueError as e:
+            print(f"Eroare: {e}")
+def ui_get_property():
+    """
+    Functie care citeste semnul de comparatie de la utilizator (<,>,=)
+    :return: cmd - string, semnul introdus de utilizator
+    """
+    while True:
+        cmd = input("Dati proprietatea (<, >, =): ").strip()
+        if cmd in ["<", ">", "="]:
+            return cmd
+        print("Comanda invalida")
 def ui_print_list(numbers):
     """
     Functie care afiseaza lista curenta numbers - lista de stringuri care contine numere complexe
@@ -100,7 +141,6 @@ def ui_print_list(numbers):
         else:
             user_numbers.append(f"{get_real(num)} - {abs(get_imag(num))}i")
     print(user_numbers)
-
 def ui_print_imag_list(numbers):
     """
     Functie care afiseaza partea imaginara a numerelor din lista curenta numbers
@@ -130,7 +170,6 @@ def ui_get_num_from_list(numbers):
                 print("Numarul nu este in lista")
         except ValueError as e:
             print(f"Eroare: {e} Incercati din nou")
-
 def ui_get_number(cmd):
     """
     Functie care citeste un numar complex de la tastatura
@@ -179,7 +218,6 @@ def ui_get_delete_pos(list_len):
             return validate_pos(pos_str, list_len)
         except ValueError as e:
             print(f"Eroare: {e}")
-
 def ui_get_start_end(list_len):
     """
     Functie care citeste de la utilizator doua numere intregi - intervalul a carui suma urmeaza a fi calculata
@@ -195,7 +233,6 @@ def ui_get_start_end(list_len):
             return validate_interval(interval, list_len)
         except ValueError as e:
             print(f"Eroare: {e}")
-
 def ui_print_subseq_sum(sum):
     """
     Functie care afiseaza suma numerelor complexe dintr-un interval
@@ -216,16 +253,15 @@ def ui_print_subseq_prod(prod):
         print(f"{get_real(prod)} + {get_imag(prod)}i")
     else:
         print(f"{get_real(prod)} - {abs(get_imag(prod))}i")
-
-def ui_run_command(command, numbers):
+def ui_run_command(command, numbers, history):
     """
     Functie care ruleaza comanda command
     :param numbers: lista de numere complexe
     :param command: string, comanda citita de la utilizator
     :return: apeleaza functia ui_show_command_prompt, functie care afiseaza promptul aferent comenzii citite
     """
-    commands = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"]
+    commands = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14"]
     if command in commands:
-        ui_show_command_prompt(command, numbers)
+        ui_show_command_prompt(command, numbers, history)
     else:
         print("Comanda invalida! Introduceti o comanda din meniu")
