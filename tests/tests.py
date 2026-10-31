@@ -157,6 +157,38 @@ def test_modulus_equal_to():
                  complex_number(10.0, 0.0)]
     mod_list = modulus_equal_to(test_list)
     assert len(mod_list) == 2
+def test_multuply():
+    """
+    Functie care testeaza functia multuply
+    :return: None
+    """
+    num1 = complex_number(3.0, 5.0)
+    num2 = complex_number(8.0, 6.0)
+    prod = multiply(num1, num2)
+    assert get_real(prod) == -6.0
+    assert get_imag(prod) == 58.0
+def test_interval_product():
+    test_list = [complex_number(3.0, 5.0),
+                 complex_number(4.0, 2.0),
+                 complex_number(6.0, 2.0),
+                 complex_number(10.0, 1.0)]
+    prod = interval_product(test_list, (0, 2))
+    assert get_real(prod) == -40.0
+    assert get_imag(prod) == 160.0
+def test_descending_sort_by_imag():
+    """
+    Functie care testeaza functia descending_sort_by_imag
+    :return: None
+    """
+    test_list = [complex_number(3.0, 2.0),
+                 complex_number(4.0, 1.0),
+                 complex_number(6.0, 5.0),
+                 complex_number(10.0, 2.0)]
+    sorted_test_list = descending_sort_by_imag(test_list)
+    assert get_imag(sorted_test_list[0]) == 5.0
+    assert get_imag(sorted_test_list[1]) == 2.0
+    assert get_imag(sorted_test_list[2]) == 2.0
+    assert get_imag(sorted_test_list[3]) == 1.0
 def test_all():
     """
     Functie care apeleaza toate functiile de test
@@ -176,3 +208,6 @@ def test_all():
     test_modulus()
     test_modulus_less_than()
     test_modulus_equal_to()
+    test_multuply()
+    test_interval_product()
+    test_descending_sort_by_imag()

@@ -85,3 +85,27 @@ def modulus_equal_to(numbers, mod=10.0):
         if modulus(num) == 10.0:
             mod_equal_to.append(num)
     return mod_equal_to
+def interval_product(numbers, interval):
+    """
+    Functie care face produsul numerelor complexe din intervalul interval
+    :param numbers: lista de numere complexe
+    :param interval: intervalul in care se produsul numerelor complexe
+    :return: prod - produsul nr complexe din intervalul interval
+    """
+    prod = {"real": 1.0,
+            "imag": 0.0}
+    for num in range(interval[0], interval[1] + 1):
+        prod = multiply(prod, numbers[num])
+    return prod
+def descending_sort_by_imag(numbers):
+    """
+    Functie care sorteaza lista numbers descrescator dupa partea imaginara
+    :param numbers: lista de numere complexes
+    :return: sorted_list _ lista sortata
+    """
+    sorted_list = numbers.copy()
+    for i in range(len(sorted_list)):
+        for j in range(i + 1, len(sorted_list)):
+            if get_imag(sorted_list[i]) < get_imag(sorted_list[j]):
+                sorted_list[i], sorted_list[j] = sorted_list[j], sorted_list[i]
+    return sorted_list

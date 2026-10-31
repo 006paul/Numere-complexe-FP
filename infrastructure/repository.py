@@ -37,3 +37,19 @@ def modulus(num):
     real = get_real(num)
     imag = get_imag(num)
     return sqrt(real**2 + imag**2)
+def multiply(num1, num2):
+    """
+    Functie care inmulteste doua numere complexe
+    :param num1: nr complex
+    :param num2: nr comlplex
+    :return: product - num1*num2
+    """
+    t1 = get_real(num1) * get_real(num2)
+    t2 = get_real(num1) * get_imag(num2)
+    t3 = get_imag(num1) * get_real(num2)
+    t4 = get_imag(num1) * get_imag(num2)
+    product_real = t1 - t4
+    product_imag = t2 + t3
+    product = {"real": product_real,
+               "imag": product_imag}
+    return product

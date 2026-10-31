@@ -16,6 +16,8 @@ def ui_menu():
           "7: Afiseaza numerele complexe care au modulul mai mic decat 10 \n"
           "8: Afiseaza numerele complexe care au modulul egal 10 \n"
           "9: Calculeaza suma numerelor dintr-o subsecventa \n"
+          "10: Cacluleaza produsul numerelor dintr-o subsecventa \n"
+          "11: Afiseaza lista sortata in ordine descrescatoare dupa partea imaginara \n"
           "12: Filtrare parte reala prim - elimina din lista numerele care au partea reala prim \n"
           "exit: Opreste programul \n"
           "---------------------------------------------------------------------------------------")
@@ -73,6 +75,14 @@ def ui_show_command_prompt(command, numbers):
         if interval is not None:
             sum = add_subseq(numbers, interval)
             ui_print_subseq_sum(sum)
+    if command == "10":
+        interval = ui_get_start_end(len(numbers))
+        if interval is not None:
+            prod = interval_product(numbers, interval)
+            ui_print_subseq_prod(prod)
+    if command == "11":
+        descending_sorted_numbers = descending_sort_by_imag(numbers)
+        ui_print_list(descending_sorted_numbers)
     if command == "12":
         filter_real_prime(numbers)
         ui_print_list(numbers)
@@ -196,6 +206,16 @@ def ui_print_subseq_sum(sum):
         print(f"{sum[0]} + {sum[1]}i")
     else:
         print(f"{sum[0]} - {abs(sum[1])}i")
+def ui_print_subseq_prod(prod):
+    """
+    Functie care afiseaza produsul numerelor complexe dintr-un intervalului
+    :param prod: produsul numerelor complexe
+    :return: None
+    """
+    if get_imag(prod) >= 0.0:
+        print(f"{get_real(prod)} + {get_imag(prod)}i")
+    else:
+        print(f"{get_real(prod)} - {abs(get_imag(prod))}i")
 
 def ui_run_command(command, numbers):
     """
@@ -204,7 +224,7 @@ def ui_run_command(command, numbers):
     :param command: string, comanda citita de la utilizator
     :return: apeleaza functia ui_show_command_prompt, functie care afiseaza promptul aferent comenzii citite
     """
-    commands = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "12"]
+    commands = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"]
     if command in commands:
         ui_show_command_prompt(command, numbers)
     else:
