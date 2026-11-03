@@ -23,13 +23,13 @@ def add_subseq(numbers, interval):
     :param interval: intervalul in care se calculeaza suma numerelor complexe
     :return: sum - suma numerelor complexe din intervalul interval
     """
-    sum = [0, 0]
+    sum_subseq = [0, 0]
     for i in range(interval[0], interval[1] + 1):
         imag_num = get_imag(numbers[i])
         real_num = get_real(numbers[i])
-        sum[0] += real_num
-        sum[1] += imag_num
-    return sum
+        sum_subseq[0] += real_num
+        sum_subseq[1] += imag_num
+    return sum_subseq
 def filter_real_prime(numbers):
     """
     Functie care elimina din lista numbers numerele complexe ale caror parti reale sunt prime
@@ -95,7 +95,7 @@ def modulus_equal_to(numbers, mod=10.0):
     """
     mod_equal_to = []
     for num in numbers:
-        if modulus(num) == 10.0:
+        if modulus(num) == mod:
             mod_equal_to.append(num)
     return mod_equal_to
 def interval_product(numbers, interval):

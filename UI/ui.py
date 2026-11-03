@@ -35,6 +35,7 @@ def ui_show_command_prompt(command, numbers, history):
     Functie care afiseaza un prompt pentru utilizator in functie de comanda selectata
     :param command: string, comanda citita de la tastatura
     :param numbers: lista de dictionare care contine numerele complexe introduse de utilizator
+    :param history: istoricul operatiilor
     :return: None
     """
     if command == "1":
@@ -78,8 +79,8 @@ def ui_show_command_prompt(command, numbers, history):
     if command == "9":
         interval = ui_get_start_end(len(numbers))
         if interval is not None:
-            sum = add_subseq(numbers, interval)
-            ui_print_subseq_sum(sum)
+            sum_subseq = add_subseq(numbers, interval)
+            ui_print_subseq_sum(sum_subseq)
     if command == "10":
         interval = ui_get_start_end(len(numbers))
         if interval is not None:
@@ -233,16 +234,16 @@ def ui_get_start_end(list_len):
             return validate_interval(interval, list_len)
         except ValueError as e:
             print(f"Eroare: {e}")
-def ui_print_subseq_sum(sum):
+def ui_print_subseq_sum(sum_subseq):
     """
     Functie care afiseaza suma numerelor complexe dintr-un interval
-    :param sum: lista ce contine [suma_real, suma_imag]
+    :param sum_subseq: lista ce contine [suma_real, suma_imag]
     :return: None
     """
-    if sum[1] >= 0.0:
-        print(f"{sum[0]} + {sum[1]}i")
+    if sum_subseq[1] >= 0.0:
+        print(f"{sum_subseq[0]} + {sum_subseq[1]}i")
     else:
-        print(f"{sum[0]} - {abs(sum[1])}i")
+        print(f"{sum_subseq[0]} - {abs(sum_subseq[1])}i")
 def ui_print_subseq_prod(prod):
     """
     Functie care afiseaza produsul numerelor complexe dintr-un intervalului
@@ -258,6 +259,7 @@ def ui_run_command(command, numbers, history):
     Functie care ruleaza comanda command
     :param numbers: lista de numere complexe
     :param command: string, comanda citita de la utilizator
+    :param history: istoricul operatiilor
     :return: apeleaza functia ui_show_command_prompt, functie care afiseaza promptul aferent comenzii citite
     """
     commands = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14"]

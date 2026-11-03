@@ -2,6 +2,7 @@ def list_history(numbers, history):
     """
     Functie care salveaza lista numbers dupa fiecare operatie
     :param numbers: lista de numere complexe
+    :param history: istoricul listei dupa fiecare operatie
     :return:
     """
     history.append(numbers.copy())
