@@ -25,7 +25,9 @@ def is_equal(complex_num1, complex_num2):
     :return: True - daca sunt egale
              False - altfel
     """
-    if get_real(complex_num1) == get_real(complex_num2) and get_imag(complex_num1) == get_imag(complex_num2):
+    epsilon = 0.000000001
+    if (get_real(complex_num1) + epsilon == get_real(complex_num2) + epsilon
+        and get_imag(complex_num1) + epsilon == get_imag(complex_num2) + epsilon):
         return True
     return False
 def modulus(num):

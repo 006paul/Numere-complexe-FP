@@ -241,9 +241,9 @@ def ui_print_subseq_sum(sum_subseq):
     :return: None
     """
     if sum_subseq[1] >= 0.0:
-        print(f"{sum_subseq[0]} + {sum_subseq[1]}i")
+        print(f"{sum_subseq[0]:.2f} + {sum_subseq[1]:.2f}i")
     else:
-        print(f"{sum_subseq[0]} - {abs(sum_subseq[1])}i")
+        print(f"{sum_subseq[0]:.2f} - {abs(sum_subseq[1]):.2f}i")
 def ui_print_subseq_prod(prod):
     """
     Functie care afiseaza produsul numerelor complexe dintr-un intervalului
@@ -251,9 +251,9 @@ def ui_print_subseq_prod(prod):
     :return: None
     """
     if get_imag(prod) >= 0.0:
-        print(f"{get_real(prod)} + {get_imag(prod)}i")
+        print(f"{get_real(prod):.2f} + {get_imag(prod):.2f}i")
     else:
-        print(f"{get_real(prod)} - {abs(get_imag(prod))}i")
+        print(f"{get_real(prod):.2f} - {abs(get_imag(prod)):.2f}i")
 def ui_run_command(command, numbers, history):
     """
     Functie care ruleaza comanda command
